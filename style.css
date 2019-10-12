@@ -1,3 +1,11 @@
+body {
+	color:#fff
+}
+
+#walter {
+	overflow: hidden;
+}
+
 .center {
 	text-align: center
 }
@@ -25,32 +33,192 @@ canvas {
 	width: 100vw;
 	height: 100vh;
 }
-.codigo {
+.codigo, .musica, .perfil {
 	position: absolute;
-}
-.codigo{
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+	display:flex;
+	margin:auto;
 	top:0;
 	left:0;
 	bottom:0;
 	right:0;
-	margin:auto;
+	
+}
+.codigo{
+
+	
 	z-index:2;
 	width: 250px;
-	height: 50px;
-	display:flex;
-	align-content: center;
-	align-items: center;
+	height: 120px;
+	display:none;
 	
 }
 
-.codigo input {
-	width: 100%;
-	height:32px;
-	margin:auto;
-	transition:all 0.2s ease-in-out;
-	transform: translate3d(0, -10px, 0);
+.musica {
+	width:100%;
+	height:100%;
+	display:none;	
+	z-index:3;
+}
+.perfil {
+	width:100%;
+	height:100%;
+	display:none;	
+	z-index:4;
+}
+.perfil .menu {
+	display:flex;
+	flex-direction: row;
+	width:100%;
+}
+.perfil .menu button {
+	width:100%
 }
 
-.animate .codigo input {
-	transform: none
+.perfil .title {
+	width:100%;
+	background:rgba(0,0,0,.5);
+	padding:13px;
+}
+
+.step1 .codigo {
+	display: flex;
+}
+.step2 .musica {
+	display:flex
+}
+.step3 .perfil {
+	display:flex
+}
+
+.musica > div.items {
+	display: flex;
+	flex-direction: row;
+	margin:auto;
+	width:100%;
+	height:100%;
+	text-transform: uppercase
+}
+.musica > div.items > div {
+	border:3px solid rgba(255, 255, 255, .3);
+	width:100%;
+	height:100%;
+	margin:auto;
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+
+.musica .buttonWrap {
+	position:absolute;
+	height:90px;
+	width:160px;
+	top:50%;
+	left:50%;
+	margin-left:-80px;
+	margin-top:-45px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	pointer-events: none;
+	animation: splash2 0.5s normal forwards ease-in-out;
+	
+}
+
+.musica .buttonWrap .hint {
+	
+	transition:all 0.5s ease-in-out;
+	transform: translate3d(0, -25px, 0) scale(2);
+	opacity:0;
+}
+
+.musica .buttonWrap button{
+	width:50%;
+	height:50px;
+	pointer-events: auto;
+	transition:all 0.2s ease-in-out;
+	transition-delay: .5s;
+	transform: scale(1.25);
+	font-size: 1.5rem;
+	opacity:0;
+	padding: 4px 10px;
+	border-radius: 5px;
+}
+
+body.step2 .codigo{
+	opacity: 0;
+}
+
+.codigo input {
+	display: block;
+	width: 50%;
+	height:35px;
+	font-weight: bold;
+	margin:auto;
+	transition:all 0.2s ease-in-out;
+	transition-delay: .5s;
+	transform: scale(1.25);
+	font-size: 1.5rem;
+	opacity:0;
+}
+
+.codigo .hint {
+	transition:all 0.5s ease-in-out;
+	transform: translate3d(0, -25px, 0) scale(2);
+	opacity:0;
+	 
+}
+
+.animate .codigo > * {
+	transform: none;
+	opacity: 1;
 } 
+
+.musica .buttonWrap .removeAnimate {
+	transform: none;
+	opacity: 1;
+}
+
+div.hint {
+	color: #fff;
+	margin:5px auto
+}
+.item {
+
+	color:#fff;
+	background:rgba(0, 0, 0, 0);
+	cursor: pointer;
+
+}
+.item.selected {
+	background:rgba(0, 0, 0, .5);
+	border-color: rgba(255, 255, 255, .5);
+	font-weight: bold
+	
+}
+.item span {
+	transition:.2s;
+	animation: splash 0.5s normal forwards ease-in-out;
+	opacity:0
+}
+.item-1 span{ animation-delay: .5s}
+.item-2 span{ animation-delay: .7s}
+.item-3 span{ animation-delay: .9s}
+.item-4 span{ animation-delay: 1.1s}
+
+.item.selected span {
+	transform: scale(1.2)
+}
+
+@keyframes splash {
+	0% {transform:scale(3) translate3d(-25px, 0, 0); opacity:0}
+	100% {transform:scale(1) translate3d(0, 0, 0); opacity: 1;}
+}
+@keyframes splash2 {
+	0% {transform:translate3d(0, -35px, 0); opacity:0}
+	100% {transform:translate3d(0, 0, 0); opacity: 1;}
+}

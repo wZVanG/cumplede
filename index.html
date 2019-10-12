@@ -3,16 +3,43 @@
 	<head>
 		<title>Cumple de Walter.com</title>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1; maximum-scale=1">
 		<meta name="theme-color" content="#000000">
 		<link rel="stylesheet" href="normalize.css">
 		<link rel="stylesheet" href="style.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.0.0/anime.min.js"></script>
+		<script src="jquery.min.js"></script>
+		<script src="anime.min.js"></script>
 	</head>
 	<body class="dark" id="walter">
 		<canvas id="c"></canvas>
-		<div class="codigo">
-			<input type="number" class="center animate" maxlength="4" autofocus placeholder="Escribe el código que te pasé" />
+		<div class="codigo center">
+			<div class="hint">Escribe aquí el código que te brindé...</div>
+			<input id="codigo" type="number" class="center animate" maxlength="4" autofocus />
+		</div>
+		<div class="musica center">
+			<div class="items">
+				<div class="item item-1" data-id="1"><span>Reggaeton</span></div>
+				<div class="item item-2" data-id="2"><span>Salsa</span></div>
+			</div>
+			<div class="items">
+				<div class="item item-3" data-id="3"><span>Rock</span></div>
+				<div class="item item-4" data-id="4"><span>Cumbia</span></div>
+			</div>
+			<div class="buttonWrap">
+				<div class="hint animate">Elige 2 categorías</div>
+				<button type="button" class="animate" disabled>OK</button>
+			</div>
+		</div>
+		<div class="perfil center">
+			<div class="menu">
+				<button>Mapa</button>
+				<button>Invitados</button>
+				<button>Tema favorito</button>
+			</div>
+			<div class="title">Bienvenido <b>Foo</b></div>
+			<div class="content">
+
+			</div>
 		</div>
 		<script src="script.js"></script>
 	</body>

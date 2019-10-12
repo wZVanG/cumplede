@@ -10,8 +10,8 @@ var colorPicker = (function() {
   var colors = [
 	  "#ff6c09", //pink
 	  "#42ff00", 
-	  "#00560a", //dark green 
-	  "#282741"];
+	  "#282741", //dark green 
+	  "#00560a"];
   var index = 0;
   function next() {
     index = index++ < colors.length-1 ? index : 0;
@@ -67,9 +67,9 @@ function handleEvent(e) {
       complete: function(){
         bgColor = pageFill.fill;
 		removeAnimation(fillAnimation);
-		console.log("bgcolor", bgColor);
-		var metaThemeColor = document.querySelector("meta[name=theme-color]");
-		metaThemeColor.setAttribute("content", bgColor);
+		
+		var metaThemeColor = $("meta[name=theme-color]");
+		metaThemeColor.attr("content", bgColor);
 	
       }
     });
@@ -196,11 +196,15 @@ function handleInactiveUser() {
   document.addEventListener("touchstart", clearInactiveTimeout);
 }
 
+var done = false;
+
 function startFauxClicking() {
   setTimeout(function(){
     fauxClick(anime.random( cW * .2, cW * .8), anime.random(cH * .2, cH * .8));
     startFauxClicking();
-  }, anime.random(30, 1900));
+  }, !done ? 500 : anime.random(30, 1900));
+
+  done = true;
 }
 
 function fauxClick(x, y) {
@@ -210,8 +214,78 @@ function fauxClick(x, y) {
   document.dispatchEvent(fauxClick);
 }
 
-var walter = document.querySelector("#walter");
+var Walter = new WalterObj();
+var walter = $("#walter")
+, codigo = $("#codigo")
+, musicaObj = $(".musica")
+, perfilObj = $(".perfil")
+, items = $(".item")
+, btnstep2 = $(".buttonWrap button");
 
-setTimeout(function(){
-	walter.classList.add("animate")
-}, 0);
+items.click(function(){
+	var el = $(this), dataset = el.data();
+	Walter.selectMusic(el, +dataset.id);
+})
+    
+
+function WalterObj(){
+	this.music = [];
+
+	this.selectMusic = function(obj, id){
+		if(!id) return;
+		var index = this.music.indexOf(id);
+		
+		if(index === -1){
+			if(this.music.length === 2) this.music.pop();
+			this.music.push(id);
+	
+		}else{
+			this.music.splice(index, 1);
+			
+		}
+
+		items.removeClass("selected");
+
+		this.music.forEach(function(id){
+			$(".item-" + id).addClass("selected");
+
+		});
+		btnstep2.prop("disabled", this.music.length != 2)
+
+	};
+
+	this.step1 = function(){
+		walter.addClass("step1");
+	} 
+
+	this.step2 = function(){
+		walter.removeClass("step1");
+		walter.addClass("step2");
+		
+		setTimeout(function(){
+			$(".musica .buttonWrap .animate").addClass("removeAnimate");
+		})
+		
+	}
+
+	this.step3 = function(){
+		walter.removeClass("step1 step2");
+		walter.addClass("step3");
+	}
+}
+
+
+walter.addClass("animate");
+Walter.step1();
+//Walter.step3();
+
+codigo.bind("keydown", function(e){
+	var code = e.keyCode || e.which;
+	if(code === 13){
+		Walter.step2();
+	}
+});
+
+btnstep2.click(function(){
+	Walter.step3();
+})
